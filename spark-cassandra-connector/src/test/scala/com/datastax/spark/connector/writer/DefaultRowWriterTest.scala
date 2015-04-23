@@ -58,7 +58,7 @@ class DefaultRowWriterTest {
   @Test
   def testTypeConversionsInUDTValuesAreApplied(): Unit = {
     val udtColumn = UDTFieldDef("field", IntType)
-    val udt = UserDefinedType("udt", Seq(udtColumn))
+    val udt = UserDefinedType("udt", IndexedSeq(udtColumn))
 
     val column = ColumnDef("c1", PartitionKeyColumn, udt)
     val table = TableDef("test", "table", Seq(column), Nil, Nil)

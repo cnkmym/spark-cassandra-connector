@@ -38,7 +38,7 @@ object DataTypeConverter extends Logging {
   def catalystDataType(cassandraType: connector.types.ColumnType[_], nullable: Boolean): catalystTypes.DataType = {
 
     def catalystStructField(field: UDTFieldDef): StructField =
-      StructField(field.fieldName, catalystDataType(field.fieldType, nullable = true), nullable = true)
+      StructField(field.columnName, catalystDataType(field.columnType, nullable = true), nullable = true)
 
     cassandraType match {
       case connector.types.SetType(et)                => catalystTypes.ArrayType(primitiveTypeMap(et), nullable)
