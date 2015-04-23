@@ -1,11 +1,12 @@
 package org.apache.spark.sql.cassandra
 
-import com.datastax.spark.connector
-import com.datastax.spark.connector.cql.ColumnDef
-import com.datastax.spark.connector.types.FieldDef
+import com.datastax.spark.connector.types.UDTFieldDef
 import org.apache.spark.Logging
 import org.apache.spark.sql.types.StructField
 import org.apache.spark.sql.{types => catalystTypes}
+
+import com.datastax.spark.connector
+import com.datastax.spark.connector.cql.ColumnDef
 
 /** Convert Cassandra data type to Catalyst data type */
 object DataTypeConverter extends Logging {
@@ -36,7 +37,7 @@ object DataTypeConverter extends Logging {
   /** Convert Cassandra data type to Catalyst data type */
   def catalystDataType(cassandraType: connector.types.ColumnType[_], nullable: Boolean): catalystTypes.DataType = {
 
-    def catalystStructField(field: FieldDef): StructField =
+    def catalystStructField(field: UDTFieldDef): StructField =
       StructField(field.fieldName, catalystDataType(field.fieldType, nullable = true), nullable = true)
 
     cassandraType match {

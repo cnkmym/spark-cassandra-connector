@@ -39,7 +39,7 @@ class DefaultRowWriterTest {
     val column3 = ColumnDef("c3", RegularColumn, TimestampType)
     val table = TableDef("test", "table", Seq(column1), Seq(column2), Seq(column3))
     val rowWriter = new DefaultRowWriter[RowOfStrings](
-      table, table.allColumns.map(_.columnName), Map.empty)
+      table, table.columns.map(_.columnName), Map.empty)
 
     val obj = RowOfStrings("1", "1.11", "2015-01-01 12:11:34")
     val buf = Array.ofDim[Any](3)
@@ -57,7 +57,7 @@ class DefaultRowWriterTest {
 
   @Test
   def testTypeConversionsInUDTValuesAreApplied(): Unit = {
-    val udtColumn = FieldDef("field", IntType)
+    val udtColumn = UDTFieldDef("field", IntType)
     val udt = UserDefinedType("udt", Seq(udtColumn))
 
     val column = ColumnDef("c1", PartitionKeyColumn, udt)
